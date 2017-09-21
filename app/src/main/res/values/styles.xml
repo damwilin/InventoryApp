@@ -13,5 +13,11 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAlignment">center</item>
     </style>
+    <style name="edit_button">
+        <item name="android:layout_width">@dimen/edit_button_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">@dimen/standard_margin</item>
+    </style>
 
 </resources>

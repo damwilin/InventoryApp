@@ -3,4 +3,6 @@
     <string name="empty_list">There is nothing to show. Let\'s add new product.</string>
     <string name="action_insert_dummy_data">insert dummy data</string>
     <string name="action_delete_all_data">delete all data</string>
+    <string name="action_save">save</string>
+    <string name="action_delete">delete</string>
 </resources>
