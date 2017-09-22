@@ -118,8 +118,26 @@ public class InventoryProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
+        SQLiteDatabase db = mInventoryDbHelper.getWritableDatabase();
+        int rowsDeleted;
+
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case PRODUCTS_ALL:
+                rowsDeleted = db.delete(InventoryEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case PRODUCT:
+                selection = InventoryEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                rowsDeleted = db.delete(InventoryEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException(String.valueOf(R.string.delete_error) + uri);
+        }
+        if (rowsDeleted != 0)
+            getContext().getContentResolver().notifyChange(uri, null);
+        return rowsDeleted;
     }
 
     @Override
