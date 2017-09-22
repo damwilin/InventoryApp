@@ -22,6 +22,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CatalogActivity"/>
         </activity>
+
+        <provider
+            android:name=".data.InventoryProvider"
+            android:authorities="com.wili.android.inventoryapp"
+            android:exported="false" />
     </application>
 
 </manifest>
