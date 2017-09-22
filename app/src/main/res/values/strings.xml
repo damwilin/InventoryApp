@@ -13,6 +13,7 @@
     <string name="update_error">Update error for: </string>
 
     <string name="insert_dummy">Dummy data inserted</string>
+    <string name="deleted_all"> rows deleted</string>
 
     <string name="null_name">Product requires a name</string>
     <string name="null_price">Product requires a price</string>

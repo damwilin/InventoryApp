@@ -17,7 +17,6 @@ import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntr
 public class CatalogActivity extends AppCompatActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,12 +47,12 @@ public class CatalogActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.insert_dummy_data:
                 insertDummyData();
                 return true;
             case R.id.delete_all_data:
-                // TODO: 9/21/2017 deleteAllData()
+                deleteAllData();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -67,5 +66,10 @@ public class CatalogActivity extends AppCompatActivity {
         values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, 10);
         getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
         Toast.makeText(this, R.string.insert_dummy, Toast.LENGTH_SHORT).show();
+    }
+
+    private void deleteAllData() {
+        int rowsDeleted = getContentResolver().delete(InventoryEntry.CONTENT_URI, null, null);
+        Toast.makeText(this, rowsDeleted + R.string.deleted_all, Toast.LENGTH_SHORT).show();
     }
 }
