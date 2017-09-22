@@ -8,8 +8,6 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.wili.android.inventoryapp.R;
@@ -141,7 +139,44 @@ public class InventoryProvider extends ContentProvider {
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case PRODUCTS_ALL:
+                return updateInventory(uri, values, selection, selectionArgs);
+            case PRODUCT:
+                selection = InventoryEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                return updateInventory(uri, values, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException(String.valueOf(R.string.update_error) + uri);
+        }
+    }
+
+    private int updateInventory(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        SQLiteDatabase db = mInventoryDbHelper.getWritableDatabase();
+        int rowsUpdated;
+
+        if (values.containsKey(InventoryEntry.COLUMN_PRODUCT_NAME)) {
+            String name = values.getAsString(InventoryEntry.COLUMN_PRODUCT_NAME);
+            if (name == null)
+                return 0;
+        }
+
+        if (values.containsKey(InventoryEntry.COLUMN_PRODUCT_PRICE)) {
+            Double price = values.getAsDouble(InventoryEntry.COLUMN_PRODUCT_PRICE);
+            if (price == null || price == 0)
+                return 0;
+        }
+
+        if (values.size() == 0)
+            return 0;
+
+        rowsUpdated = db.update(InventoryEntry.TABLE_NAME, values, selection, selectionArgs);
+
+        if (rowsUpdated != 0)
+            getContext().getContentResolver().notifyChange(uri, null);
+
+        return rowsUpdated;
     }
 }
