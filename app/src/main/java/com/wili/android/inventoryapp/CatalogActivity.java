@@ -1,7 +1,11 @@
 package com.wili.android.inventoryapp;
 
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +18,10 @@ import android.widget.Toast;
 
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
-public class CatalogActivity extends AppCompatActivity {
+public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+
+    InventoryCursorAdapter mInventoryCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,10 @@ public class CatalogActivity extends AppCompatActivity {
         TextView emptyView = (TextView) findViewById(R.id.empty_view);
         //Set that view as empty view in ListView
         productsListView.setEmptyView(emptyView);
+        mInventoryCursorAdapter = new InventoryCursorAdapter(this, null);
+        productsListView.setAdapter(mInventoryCursorAdapter);
+
+        getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -71,5 +81,27 @@ public class CatalogActivity extends AppCompatActivity {
     private void deleteAllData() {
         int rowsDeleted = getContentResolver().delete(InventoryEntry.CONTENT_URI, null, null);
         Toast.makeText(this, rowsDeleted + R.string.deleted_all, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String[] projection = {
+                InventoryEntry._ID,
+                InventoryEntry.COLUMN_PRODUCT_NAME,
+                InventoryEntry.COLUMN_PRODUCT_PRICE,
+                InventoryEntry.COLUMN_PRODUCT_QUANTITY,
+                InventoryEntry.COLUMN_PRODUCT_IMAGE};
+
+        return new CursorLoader(this, InventoryEntry.CONTENT_URI, projection, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mInventoryCursorAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mInventoryCursorAdapter.swapCursor(null);
     }
 }
