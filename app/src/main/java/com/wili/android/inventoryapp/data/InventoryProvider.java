@@ -111,6 +111,9 @@ public class InventoryProvider extends ContentProvider {
             Log.e(LOG_TAG, String.valueOf(R.string.insert_error) + uri);
             return null;
         }
+
+        getContext().getContentResolver().notifyChange(uri, null);
+
         return ContentUris.withAppendedId(uri, id);
     }
 
