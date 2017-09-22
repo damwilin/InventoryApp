@@ -1,10 +1,12 @@
 package com.wili.android.inventoryapp.data;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,7 +46,23 @@ public class InventoryProvider extends ContentProvider {
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        return null;
+        SQLiteDatabase db = mInventoryDbHelper.getReadableDatabase();
+        Cursor cursor;
+        int match = sUriMatcher.match(uri);
+        switch (match){
+            case PRODUCTS_ALL:
+                cursor = db.query(InventoryEntry.TABLE_NAME,projection,selection,selectionArgs,null,null,sortOrder);
+                break;
+            case PRODUCT:
+                selection = InventoryEntry._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                cursor = db.query(InventoryEntry.TABLE_NAME,projection,selection,selectionArgs,null,null,sortOrder);
+                break;
+            default:
+                throw new IllegalArgumentException(Resources.getSystem().getString(R.string.unkown_uri));
+        }
+        cursor.setNotificationUri(getContext().getContentResolver(),uri);
+        return cursor;
     }
 
     @Override
