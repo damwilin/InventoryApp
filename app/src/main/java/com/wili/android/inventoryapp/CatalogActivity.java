@@ -1,14 +1,18 @@
 package com.wili.android.inventoryapp;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 public class CatalogActivity extends AppCompatActivity {
 
@@ -46,7 +50,7 @@ public class CatalogActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.insert_dummy_data:
-                // TODO: 9/21/2017 InsertDummyData()
+                insertDummyData();
                 return true;
             case R.id.delete_all_data:
                 // TODO: 9/21/2017 deleteAllData()
@@ -54,5 +58,14 @@ public class CatalogActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void insertDummyData() {
+        ContentValues values = new ContentValues();
+        values.put(InventoryEntry.COLUMN_PRODUCT_NAME, "New Product");
+        values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, 2.54);
+        values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, 10);
+        getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
+        Toast.makeText(this, R.string.insert_dummy, Toast.LENGTH_SHORT).show();
     }
 }

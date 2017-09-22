@@ -12,6 +12,8 @@
     <string name="delete_error">Delete error for: </string>
     <string name="update_error">Update error for: </string>
 
+    <string name="insert_dummy">Dummy data inserted</string>
+
     <string name="null_name">Product requires a name</string>
     <string name="null_price">Product requires a price</string>
     <string name="null_quantity">Product requires a quantity</string>
