@@ -7,4 +7,9 @@
     <string name="action_delete">delete</string>
     <string name="no_products">Sorry, but we don\'t have this product for now.</string>
     <string name="unkown_uri">Unkown URI</string>
+    <string name="insert_error">Insert error for: </string>
+
+    <string name="null_name">Product requires a name</string>
+    <string name="null_price">Product requires a price</string>
+    <string name="null_quantity">Product requires a quantity</string>
 </resources>
