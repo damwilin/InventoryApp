@@ -33,7 +33,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CatalogActivity.this, EditActivity.class));
+                startActivity(new Intent(CatalogActivity.this, EditAndNewProductActivity.class));
             }
         });
 
@@ -74,6 +74,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         values.put(InventoryEntry.COLUMN_PRODUCT_NAME, "New Product");
         values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, 2.54);
         values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, 10);
+        values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER, "Old Supplier");
         getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
         Toast.makeText(this, R.string.insert_dummy, Toast.LENGTH_SHORT).show();
     }
@@ -90,6 +91,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 InventoryEntry.COLUMN_PRODUCT_NAME,
                 InventoryEntry.COLUMN_PRODUCT_PRICE,
                 InventoryEntry.COLUMN_PRODUCT_QUANTITY,
+                InventoryEntry.COLUMN_PRODUCT_SUPPLIER,
                 InventoryEntry.COLUMN_PRODUCT_IMAGE};
 
         return new CursorLoader(this, InventoryEntry.CONTENT_URI, projection, null, null, null);

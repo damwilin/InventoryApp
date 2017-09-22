@@ -104,6 +104,10 @@ public class InventoryProvider extends ContentProvider {
         if (quantity == null || quantity == 0)
             throw new IllegalArgumentException(String.valueOf(R.string.null_quantity));
 
+        String productSupplier = values.getAsString(InventoryEntry.COLUMN_PRODUCT_SUPPLIER);
+        if (productSupplier == null)
+            throw new IllegalArgumentException(String.valueOf(R.string.null_supplier));
+
         long id = db.insert(InventoryEntry.TABLE_NAME, null, values);
         if (id == -1) {
             Log.e(LOG_TAG, String.valueOf(R.string.insert_error) + uri);

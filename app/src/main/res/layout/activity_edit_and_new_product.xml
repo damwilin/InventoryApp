@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.wili.android.inventoryapp.EditAndNewProductActivity">
+
+    <EditText
+        android:id="@+id/edit_product_name"
+        style="@style/edit_product_text"
+        android:hint="product name" />
+
+    <EditText
+        android:id="@+id/edit_product_price"
+        style="@style/edit_product_text"
+        android:hint="product price"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/edit_product_quantity"
+        style="@style/edit_product_text"
+        android:hint="product quantity"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/edit_product_supplier"
+        style="@style/edit_product_text"
+        android:hint="product supplier" />
+
+
+</LinearLayout>

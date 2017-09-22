@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">InventoryApp</string>
+    <string name="new_product_label">Add new product</string>
     <string name="empty_list">There is nothing to show. Let\'s add new product.</string>
     <string name="action_insert_dummy_data">insert dummy data</string>
     <string name="action_delete_all_data">delete all data</string>
@@ -18,4 +19,5 @@
     <string name="null_name">Product requires a name</string>
     <string name="null_price">Product requires a price</string>
     <string name="null_quantity">Product requires a quantity</string>
+    <string name="null_supplier">Product requires a supplier</string>
 </resources>

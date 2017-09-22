@@ -14,7 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.*;
+import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_IMAGE;
+import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_NAME;
+import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_PRICE;
+import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_QUANTITY;
+import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.CONTENT_URI;
+import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry._ID;
 
 /**
  * Created by Damian on 9/22/2017.
@@ -39,7 +44,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
         TextView productPriceTextView =(TextView) view.findViewById(R.id.product_price);
         TextView productQuantityTextView =(TextView) view.findViewById(R.id.product_quantity);
         ImageView productImageView = (ImageView) view.findViewById(R.id.product_picture);
-        Button productBuyButton = (Button) view.findViewById(R.id.new_product_button);
+        Button productBuyButton = (Button) view.findViewById(R.id.product_buy);
 
         //Find the columns indexes
         int indexProductId = cursor.getColumnIndex(_ID);
@@ -61,7 +66,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
         //Update views
         productNameTextView.setText(productName);
         productPriceTextView.setText(productPrice);
-        productQuantityTextView.setText(productQuantity);
+        productQuantityTextView.setText(String.valueOf(productQuantity));
         // TODO: 9/22/2017 add update view to product picture
 
         //Update button
