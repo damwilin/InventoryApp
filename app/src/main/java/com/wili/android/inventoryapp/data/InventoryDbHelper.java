@@ -8,6 +8,7 @@ import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntr
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_NAME;
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_PRICE;
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_QUANTITY;
+import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_SALES;
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_SUPPLIER;
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COMMA_SEP;
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.INTEGER_TYPE;
@@ -32,11 +33,12 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String SQL_CREATE_ENTRIES = "CREATE TABLE " + TABLE_NAME + "(" +
-                _ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                _ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT," +
                 COLUMN_PRODUCT_NAME + TEXT_TYPE + COMMA_SEP +
                 COLUMN_PRODUCT_IMAGE + TEXT_TYPE + COMMA_SEP +
-                COLUMN_PRODUCT_PRICE + INTEGER_TYPE +COMMA_SEP +
+                COLUMN_PRODUCT_PRICE + INTEGER_TYPE + COMMA_SEP +
                 COLUMN_PRODUCT_QUANTITY + INTEGER_TYPE + COMMA_SEP +
+                COLUMN_PRODUCT_SALES + INTEGER_TYPE + " DEFAULT 0" + COMMA_SEP +
                 COLUMN_PRODUCT_SUPPLIER + INTEGER_TYPE + ")";
 
         db.execSQL(SQL_CREATE_ENTRIES);
