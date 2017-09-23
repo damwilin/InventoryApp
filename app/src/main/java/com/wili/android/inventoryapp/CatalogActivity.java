@@ -4,12 +4,14 @@ import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -75,7 +77,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 insertDummyData();
                 return true;
             case R.id.delete_all_data:
-                deleteAllData();
+                showDeleteConfirmationDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -97,17 +99,30 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         Toast.makeText(this, rowsDeleted + R.string.deleted_all, Toast.LENGTH_SHORT).show();
     }
 
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_all_confirmation_question);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteAllData();
+            }
+        });
+        builder.setNegativeButton(R.string.cencel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (dialog != null)
+                    dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] projection = {
-                InventoryEntry._ID,
-                InventoryEntry.COLUMN_PRODUCT_NAME,
-                InventoryEntry.COLUMN_PRODUCT_PRICE,
-                InventoryEntry.COLUMN_PRODUCT_QUANTITY,
-                InventoryEntry.COLUMN_PRODUCT_SUPPLIER,
-                InventoryEntry.COLUMN_PRODUCT_IMAGE};
-
-        return new CursorLoader(this, InventoryEntry.CONTENT_URI, projection, null, null, null);
+        return new CursorLoader(this, InventoryEntry.CONTENT_URI, InventoryEntry.STANDARD_PROJECTION, null, null, null);
     }
 
     @Override

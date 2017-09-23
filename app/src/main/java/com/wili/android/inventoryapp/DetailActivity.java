@@ -148,15 +148,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] projection = {
-                InventoryEntry._ID,
-                InventoryEntry.COLUMN_PRODUCT_NAME,
-                InventoryEntry.COLUMN_PRODUCT_PRICE,
-                InventoryEntry.COLUMN_PRODUCT_QUANTITY,
-                InventoryEntry.COLUMN_PRODUCT_SALES,
-                InventoryEntry.COLUMN_PRODUCT_SUPPLIER
-        };
-        return new CursorLoader(this, currentProductUri, projection, null, null, null);
+        return new CursorLoader(this, currentProductUri, InventoryEntry.STANDARD_PROJECTION, null, null, null);
     }
 
     @Override

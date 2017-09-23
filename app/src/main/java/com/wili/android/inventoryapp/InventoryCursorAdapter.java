@@ -18,6 +18,7 @@ import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntr
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_NAME;
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_PRICE;
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_QUANTITY;
+import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_SALES;
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.CONTENT_URI;
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry._ID;
 
@@ -52,13 +53,15 @@ public class InventoryCursorAdapter extends CursorAdapter {
         int indexProductPrice = cursor.getColumnIndex(COLUMN_PRODUCT_PRICE);
         int indexProductQuantity = cursor.getColumnIndex(COLUMN_PRODUCT_QUANTITY);
         int indexProductImage = cursor.getColumnIndex(COLUMN_PRODUCT_IMAGE);
+        int indexProductSales = cursor.getColumnIndex(COLUMN_PRODUCT_SALES);
 
         //Get informations from cursor
         int productId = cursor.getInt(indexProductId);
         String productName = cursor.getString(indexProductName);
         String productPrice = cursor.getString(indexProductPrice);
         final int productQuantity = cursor.getInt(indexProductQuantity);
-        String productPicture = cursor.getString(indexProductImage);
+        Uri productPicture = Uri.parse(cursor.getString(indexProductImage));
+        final int productSales = cursor.getInt(indexProductSales);
 
         //Create Uri for current product
         final Uri currentProductUri = ContentUris.withAppendedId(CONTENT_URI,productId);
@@ -74,9 +77,11 @@ public class InventoryCursorAdapter extends CursorAdapter {
             @Override
             public void onClick(View v) {
                 if (productQuantity >0){
+                    int currentSales = productSales;
                     int currentQuantity = productQuantity;
                     ContentValues values = new ContentValues();
                     values.put(COLUMN_PRODUCT_QUANTITY, --currentQuantity);
+                    values.put(COLUMN_PRODUCT_SALES, ++currentSales);
                     view.getContext().getContentResolver().update(currentProductUri,values,null,null);
                 }
                 else
