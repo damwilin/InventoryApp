@@ -21,13 +21,15 @@
             android:parentActivityName=".CatalogActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CatalogActivity"/>
+                android:value=".CatalogActivity" />
         </activity>
 
         <provider
             android:name=".data.InventoryProvider"
             android:authorities="com.wili.android.inventoryapp"
             android:exported="false" />
+
+        <activity android:name=".DetailActivity"></activity>
     </application>
 
 </manifest>

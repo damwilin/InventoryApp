@@ -20,4 +20,12 @@
     <string name="null_price">Product requires a price</string>
     <string name="null_quantity">Product requires a quantity</string>
     <string name="null_supplier">Product requires a supplier</string>
+
+    <string name="name_description">Name:</string>
+    <string name="price_description">Price:</string>
+    <string name="quantity_description">Quantity:</string>
+    <string name="supplier_description">Supplier:</string>
+    <string name="photo_description">Photo:</string>
+    <string name="save_error">You need to fill all data first</string>
+    <string name="sales_description">Sales:</string>
 </resources>

@@ -36,7 +36,7 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
                 COLUMN_PRODUCT_NAME + TEXT_TYPE + COMMA_SEP +
                 COLUMN_PRODUCT_IMAGE + TEXT_TYPE + COMMA_SEP +
                 COLUMN_PRODUCT_PRICE + INTEGER_TYPE +COMMA_SEP +
-                COLUMN_PRODUCT_QUANTITY + INTEGER_TYPE +
+                COLUMN_PRODUCT_QUANTITY + INTEGER_TYPE + COMMA_SEP +
                 COLUMN_PRODUCT_SUPPLIER + INTEGER_TYPE + ")";
 
         db.execSQL(SQL_CREATE_ENTRIES);
