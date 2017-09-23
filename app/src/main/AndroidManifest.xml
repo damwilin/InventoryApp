@@ -31,6 +31,7 @@
 
         <activity
             android:name=".DetailActivity"
+            android:label="@string/detail_activity_label"
             android:parentActivityName=".CatalogActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
