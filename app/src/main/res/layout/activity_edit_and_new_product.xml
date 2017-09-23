@@ -1,72 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     tools:context="com.wili.android.inventoryapp.EditAndNewProductActivity">
 
-    <!--Product name-->
-    <LinearLayout style="@style/attributes_layout">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            style="@style/attributes_description"
-            android:text="@string/name_description" />
+        <!--Product name-->
+        <LinearLayout style="@style/attributes_layout">
 
-        <EditText
-            android:id="@+id/edit_product_name"
-            style="@style/edit_product_text" />
+            <TextView
+                style="@style/attributes_description"
+                android:text="@string/name_description" />
+
+            <EditText
+                android:id="@+id/edit_product_name"
+                style="@style/edit_product_text" />
+        </LinearLayout>
+
+        <!--Product price-->
+        <LinearLayout style="@style/attributes_layout">
+
+            <TextView
+                style="@style/attributes_description"
+                android:text="@string/price_description" />
+
+            <EditText
+                android:id="@+id/edit_product_price"
+                style="@style/edit_product_text"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+
+        <!--Product quantity-->
+        <LinearLayout style="@style/attributes_layout">
+
+            <TextView
+                style="@style/attributes_description"
+                android:text="@string/quantity_description" />
+
+            <EditText
+                android:id="@+id/edit_product_quantity"
+                style="@style/edit_product_text"
+                android:inputType="number" />
+        </LinearLayout>
+
+
+        <!--Product supplier-->
+        <LinearLayout style="@style/attributes_layout">
+
+            <TextView
+                style="@style/attributes_description"
+                android:text="@string/supplier_description" />
+
+            <EditText
+                android:id="@+id/edit_product_supplier"
+                style="@style/edit_product_text" />
+        </LinearLayout>
+
+        <!--Product photo-->
+        <LinearLayout style="@style/attributes_layout">
+
+            <TextView
+                style="@style/attributes_description"
+                android:text="@string/photo_description" />
+
+            <Button
+                android:id="@+id/button_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/choose_image" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/productImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
     </LinearLayout>
-
-    <!--Product price-->
-    <LinearLayout style="@style/attributes_layout">
-
-        <TextView
-            style="@style/attributes_description"
-            android:text="@string/price_description" />
-
-        <EditText
-            android:id="@+id/edit_product_price"
-            style="@style/edit_product_text"
-            android:inputType="numberDecimal" />
-    </LinearLayout>
-
-    <!--Product quantity-->
-    <LinearLayout style="@style/attributes_layout">
-
-        <TextView
-            style="@style/attributes_description"
-            android:text="@string/quantity_description" />
-
-        <EditText
-            android:id="@+id/edit_product_quantity"
-            style="@style/edit_product_text"
-            android:inputType="number" />
-    </LinearLayout>
-
-
-    <!--Product supplier-->
-    <LinearLayout style="@style/attributes_layout">
-
-        <TextView
-            style="@style/attributes_description"
-            android:text="@string/supplier_description" />
-
-        <EditText
-            android:id="@+id/edit_product_supplier"
-            style="@style/edit_product_text" />
-    </LinearLayout>
-
-    <!--Product photo-->
-    <LinearLayout style="@style/attributes_layout">
-
-        <TextView
-            style="@style/attributes_description"
-            android:text="@string/photo_description" />
-
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>

@@ -13,19 +13,27 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 public class EditAndNewProductActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int EXISTING_LOADER_ID = 0;
+    private static final int RESULT_SELECT_PICTURE = 1;
     private EditText productNameEditText;
     private EditText productPriceEditText;
     private EditText productQuantityEditText;
     private EditText productSupplierEditText;
+    private Button productChooseImage;
     private Uri currentProductUri;
+    private Uri productImageUri;
+    private ImageView productImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,15 @@ public class EditAndNewProductActivity extends AppCompatActivity implements Load
         productPriceEditText = (EditText) findViewById(R.id.edit_product_price);
         productQuantityEditText = (EditText) findViewById(R.id.edit_product_quantity);
         productSupplierEditText = (EditText) findViewById(R.id.edit_product_supplier);
+        productImageView = (ImageView) findViewById(R.id.productImageView);
+
+        productChooseImage = (Button) findViewById(R.id.button_image);
+        productChooseImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickImage();
+            }
+        });
 
         //Check if edit mode or create mode
         currentProductUri = getIntent().getData();
@@ -120,11 +137,23 @@ public class EditAndNewProductActivity extends AppCompatActivity implements Load
         values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, productPrice);
         values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, productQuantity);
         values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER, productSupplier);
+        if (productImageUri != null)
+            values.put(InventoryEntry.COLUMN_PRODUCT_IMAGE, productImageUri.toString());
 
-        if (currentProductUri == null)
-            getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
-        else
-            getContentResolver().update(currentProductUri, values, null, null);
+        if (currentProductUri == null) {
+            Uri insertedRow = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
+            if (insertedRow != null)
+                Toast.makeText(this, R.string.add_successful, Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(this, R.string.add_error, Toast.LENGTH_SHORT).show();
+        } else {
+            int updatedRow = getContentResolver().update(currentProductUri, values, null, null);
+            if (updatedRow != 0)
+                Toast.makeText(this, R.string.update_successful, Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(this, R.string.edit_update_error, Toast.LENGTH_SHORT).show();
+
+        }
         finish();
     }
 
@@ -157,6 +186,22 @@ public class EditAndNewProductActivity extends AppCompatActivity implements Load
         alertDialog.show();
     }
 
+    private void pickImage() {
+        Intent intentImage = new Intent();
+        intentImage.setType("image/*");
+        intentImage.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intentImage, "Select image"), RESULT_SELECT_PICTURE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK)
+            if (requestCode == RESULT_SELECT_PICTURE) {
+                productImageUri = data.getData();
+                Picasso.with(getBaseContext()).load(productImageUri).into(productImageView);
+            }
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -174,18 +219,25 @@ public class EditAndNewProductActivity extends AppCompatActivity implements Load
             int columnIndexPrice = data.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_PRICE);
             int columnIndexQuantity = data.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_QUANTITY);
             int columnIndexSupplier = data.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_SUPPLIER);
+            int columnIndexImage = data.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_IMAGE);
 
             //Get attributes from cursor
             String productName = data.getString(columnIndexName);
             double productPrice = data.getDouble(columnIndexPrice);
             int productQuantity = data.getInt(columnIndexQuantity);
             String productSupplier = data.getString(columnIndexSupplier);
+            String productImage = data.getString(columnIndexImage);
+            if (productImage != null)
+                productImageUri = Uri.parse(data.getString(columnIndexImage));
 
             //Set attributes to views
             productNameEditText.setText(productName);
             productPriceEditText.setText(Double.toString(productPrice));
             productQuantityEditText.setText(Integer.toString(productQuantity));
             productSupplierEditText.setText(productSupplier);
+            if (productImageUri != null) {
+                Picasso.with(getBaseContext()).load(productImageUri).into(productImageView);
+            }
         }
     }
 

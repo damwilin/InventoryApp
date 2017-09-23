@@ -1,91 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.wili.android.inventoryapp.EditAndNewProductActivity">
 
-    <!--Product name-->
-    <LinearLayout style="@style/attributes_layout">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            style="@style/attributes_description"
-            android:text="@string/name_description" />
+        <!--Product name-->
+        <LinearLayout style="@style/attributes_layout">
 
-        <TextView
-            android:id="@+id/product_name"
-            style="@style/detail_attributes" />
+            <TextView
+                style="@style/attributes_description"
+                android:text="@string/name_description" />
+
+            <TextView
+                android:id="@+id/product_name"
+                style="@style/detail_attributes" />
+        </LinearLayout>
+
+        <!--Product price-->
+        <LinearLayout style="@style/attributes_layout">
+
+            <TextView
+                style="@style/attributes_description"
+                android:text="@string/price_description" />
+
+            <TextView
+                android:id="@+id/product_price"
+                style="@style/detail_attributes" />
+        </LinearLayout>
+
+        <!--Product quantity-->
+        <LinearLayout style="@style/attributes_layout">
+
+            <TextView
+                style="@style/attributes_description"
+                android:text="@string/quantity_description" />
+
+            <TextView
+                android:id="@+id/product_quantity"
+                style="@style/detail_attributes" />
+
+            <Button
+                android:id="@+id/minus_quantity"
+                style="@style/button_quantity"
+                android:text="-" />
+
+            <Button
+                android:id="@+id/plus_quantity"
+                style="@style/button_quantity"
+                android:text="+" />
+        </LinearLayout>
+
+
+        <!--Product supplier-->
+        <LinearLayout style="@style/attributes_layout">
+
+            <TextView
+                style="@style/attributes_description"
+                android:text="@string/supplier_description" />
+
+            <TextView
+                android:id="@+id/product_supplier"
+                style="@style/detail_attributes" />
+        </LinearLayout>
+
+        <!--Product sales-->
+        <LinearLayout style="@style/attributes_layout">
+
+            <TextView
+                style="@style/attributes_description"
+                android:text="@string/sales_description" />
+
+            <TextView
+                android:id="@+id/product_sales"
+                style="@style/detail_attributes" />
+        </LinearLayout>
+
+        <!--Product photo-->
+        <LinearLayout style="@style/attributes_layout">
+
+            <TextView
+                style="@style/attributes_description"
+                android:text="@string/photo_description" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/detail_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
     </LinearLayout>
-
-    <!--Product price-->
-    <LinearLayout style="@style/attributes_layout">
-
-        <TextView
-            style="@style/attributes_description"
-            android:text="@string/price_description" />
-
-        <TextView
-            android:id="@+id/product_price"
-            style="@style/detail_attributes" />
-    </LinearLayout>
-
-    <!--Product quantity-->
-    <LinearLayout style="@style/attributes_layout">
-
-        <TextView
-            style="@style/attributes_description"
-            android:text="@string/quantity_description" />
-
-        <TextView
-            android:id="@+id/product_quantity"
-            style="@style/detail_attributes" />
-
-        <Button
-            android:id="@+id/minus_quantity"
-            style="@style/button_quantity"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/plus_quantity"
-            style="@style/button_quantity"
-            android:text="+" />
-    </LinearLayout>
-
-
-    <!--Product supplier-->
-    <LinearLayout style="@style/attributes_layout">
-
-        <TextView
-            style="@style/attributes_description"
-            android:text="@string/supplier_description" />
-
-        <TextView
-            android:id="@+id/product_supplier"
-            style="@style/detail_attributes" />
-    </LinearLayout>
-
-    <!--Product sales-->
-    <LinearLayout style="@style/attributes_layout">
-
-        <TextView
-            style="@style/attributes_description"
-            android:text="@string/sales_description" />
-
-        <TextView
-            android:id="@+id/product_sales"
-            style="@style/detail_attributes" />
-    </LinearLayout>
-
-    <!--Product photo-->
-    <LinearLayout style="@style/attributes_layout">
-
-        <TextView
-            style="@style/attributes_description"
-            android:text="@string/photo_description" />
-
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>

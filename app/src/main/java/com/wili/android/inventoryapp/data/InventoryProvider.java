@@ -24,7 +24,7 @@ public class InventoryProvider extends ContentProvider {
     public static final int PRODUCTS_ALL = 100;
     //URI matcher code for content URI for single product
     public static final int PRODUCT = 101;
-    //URI matcher code to match a context URI to coresponding code
+    //URI matcher code to match a context URI to code
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     //Static initializer

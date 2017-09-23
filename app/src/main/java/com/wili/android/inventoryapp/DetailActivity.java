@@ -15,8 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -27,10 +29,12 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private TextView viewProductQuantity;
     private TextView viewProductSupplier;
     private TextView viewProductSales;
+    private ImageView viewProductImage;
     private Button quantityPlus;
     private Button quantityMinus;
     private Uri currentProductUri;
     private int currentProductQuantity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         viewProductQuantity = (TextView) findViewById(R.id.product_quantity);
         viewProductSupplier = (TextView) findViewById(R.id.product_supplier);
         viewProductSales = (TextView) findViewById(R.id.product_sales);
+
+        viewProductImage = (ImageView) findViewById(R.id.detail_photo);
 
         quantityMinus = (Button) findViewById(R.id.minus_quantity);
         quantityPlus = (Button) findViewById(R.id.plus_quantity);
@@ -163,6 +169,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             int columnIndexQuantity = data.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_QUANTITY);
             int columnIndexSales = data.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_SALES);
             int columnIndexSupplier = data.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_SUPPLIER);
+            int columnIndexImage = data.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_IMAGE);
 
             //Get values from cursor
             String productName = data.getString(columnIndexName);
@@ -170,6 +177,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             currentProductQuantity = data.getInt(columnIndexQuantity);
             int productSales = data.getInt(columnIndexSales);
             String productSupplier = data.getString(columnIndexSupplier);
+            String productImage = data.getString(columnIndexImage);
 
             //Update the views
             viewProductName.setText(productName);
@@ -177,6 +185,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             viewProductQuantity.setText(Integer.toString(currentProductQuantity));
             viewProductSales.setText(Integer.toString(productSales));
             viewProductSupplier.setText(productSupplier);
+            if (productImage != null)
+                Picasso.with(getBaseContext()).load(Uri.parse(productImage)).into(viewProductImage);
         }
 
 

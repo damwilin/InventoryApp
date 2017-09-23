@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_IMAGE;
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_NAME;
 import static com.wili.android.inventoryapp.data.InventoryContract.InventoryEntry.COLUMN_PRODUCT_PRICE;
@@ -60,7 +62,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
         String productName = cursor.getString(indexProductName);
         String productPrice = cursor.getString(indexProductPrice);
         final int productQuantity = cursor.getInt(indexProductQuantity);
-        Uri productPicture = Uri.parse(cursor.getString(indexProductImage));
+        String productImage = cursor.getString(indexProductImage);
         final int productSales = cursor.getInt(indexProductSales);
 
         //Create Uri for current product
@@ -70,7 +72,11 @@ public class InventoryCursorAdapter extends CursorAdapter {
         productNameTextView.setText(productName);
         productPriceTextView.setText(productPrice);
         productQuantityTextView.setText(String.valueOf(productQuantity));
-        // TODO: 9/22/2017 add update view to product picture
+        Uri currentProductImageUri = null;
+        if (productImage != null)
+            currentProductImageUri = Uri.parse(productImage);
+        Picasso.with(context).load(currentProductImageUri).placeholder(R.drawable.ic_shopping_basket_black_24dp).into(productImageView);
+
 
         //Update button
         productBuyButton.setOnClickListener(new View.OnClickListener() {

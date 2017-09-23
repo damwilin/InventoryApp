@@ -95,8 +95,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     }
 
     private void deleteAllData() {
-        int rowsDeleted = getContentResolver().delete(InventoryEntry.CONTENT_URI, null, null);
-        Toast.makeText(this, rowsDeleted + R.string.deleted_all, Toast.LENGTH_SHORT).show();
+        getContentResolver().delete(InventoryEntry.CONTENT_URI, null, null);
+        Toast.makeText(this, R.string.deleted_all, Toast.LENGTH_SHORT).show();
     }
 
     private void showDeleteConfirmationDialog() {
