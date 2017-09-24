@@ -127,7 +127,8 @@ public class EditAndNewProductActivity extends AppCompatActivity implements Load
         if (productName.isEmpty() ||
                 productPrice.isEmpty() ||
                 productQuantity.isEmpty() ||
-                productSupplier.isEmpty()) {
+                productSupplier.isEmpty() ||
+                productImageUri == null) {
             Toast.makeText(this, getString(R.string.save_error), Toast.LENGTH_SHORT).show();
             return;
         }
